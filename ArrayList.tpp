@@ -1,16 +1,58 @@
 template <typename T>
 void ArrayList<T>::bubbleSort() {
     // TODO
+    for (int i = 0; i < this->length - 1; i++){   // outer pass
+        for (int j = 0; j < this->length - 1 - i; j++){ // inner pass, shrinks each round
+
+            numComps++;                           // count the comparisons
+            
+            if (buffer[j] > buffer[j + 1]){            // if left > right then swap
+                swap(j, j + 1);
+                numSwaps++;                        // count the swap
+            }
+        }
+    }
 }
 
 template <typename T>
 void ArrayList<T>::insertionSort() {
     // TODO
+    for (int i = 1; i < this->length; i++){                // start at index 1, insert into sorted left side
+
+        int j = i;
+
+        while (j > 0){
+            numComps++;                             // counting the comparison
+            if (buffer[j] < buffer[j - 1]){    // if out of order, swap it left
+                swap(j, j - 1);
+                numSwaps++;                  // count the swap
+                j--;
+            } else{
+                break;                           // already in place, stop early
+            }
+        }
+    }
 }
 
 template <typename T>
-void ArrayList<T>::selectionSort() {
+void ArrayList<T>::selectionSort(){
     // TODO
+    for (int i = 0; i < this->length - 1; i++){                // each pass finds min of remaining
+    
+        int minIdx = i;                             // assume current pos is the min
+
+        for (int j = i + 1; j < this->length; j++){   // scan the rest
+            numComps++;                                         // count the comparison
+            if (buffer[j] < buffer[minIdx]){           // found a new min
+                minIdx = j;
+            }
+        }
+
+        if (minIdx != i){          // only swap if min isn't already in place
+            swap(i, minIdx);
+            numSwaps++;             // count the swap
+        }
+    }
 }
 
 /*******************************************************************************
